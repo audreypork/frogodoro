@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { TimerStatus } from '../lib/types';
 
-const TOTAL_SECONDS = 5;
+const TOTAL_SECONDS = 25 * 60;
 
 interface UseTimerReturn {
   secondsLeft: number;

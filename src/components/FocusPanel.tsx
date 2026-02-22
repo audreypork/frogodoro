@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTimer } from '../hooks/useTimer';
 import { IndicatorDot } from './IndicatorDot';
 import { playClick, playTick } from '../lib/sounds';
@@ -9,12 +9,21 @@ interface Props {
   mobile?: boolean;
 }
 
-function getFrogSrc(secondsLeft: number): string {
-  if (secondsLeft > 20 * 60) return '/assets/frog-sleeping.png';
-  if (secondsLeft > 15 * 60) return '/assets/frog-sleepy.png';
-  if (secondsLeft > 10 * 60) return '/assets/frog-smile.png';
-  if (secondsLeft > 5 * 60)  return '/assets/frog-happy.png';
-  return '/assets/frog-excited.png';
+function getFrogSrc(secondsLeft: number, awaitingSelection: boolean): string {
+  if (awaitingSelection)       return '/assets/frog-36.png';
+  if (secondsLeft > 20 * 60)  return '/assets/frog-31.png';
+  if (secondsLeft > 15 * 60)  return '/assets/frog-32.png';
+  if (secondsLeft > 10 * 60)  return '/assets/frog-33.png';
+  if (secondsLeft > 5 * 60)   return '/assets/frog-34.png';
+  return '/assets/frog-36.png';
+}
+
+function getBubbleSrc(secondsLeft: number): string {
+  if (secondsLeft > 20 * 60) return '/assets/bubble-zzzz.png';
+  if (secondsLeft > 15 * 60) return '/assets/bubble-hmm.png';
+  if (secondsLeft > 10 * 60) return '/assets/bubble-ohhey.png';
+  if (secondsLeft > 5 * 60)  return '/assets/bubble-omg.png';
+  return '/assets/bubble-waaaah.png';
 }
 
 function format(seconds: number): string {
@@ -34,6 +43,14 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, mobile }: Pro
     }
   }, [secondsLeft, isRunning]);
 
+  const prevAwaiting = useRef(awaitingSelection);
+  useEffect(() => {
+    if (prevAwaiting.current && !awaitingSelection) {
+      reset();
+    }
+    prevAwaiting.current = awaitingSelection;
+  }, [awaitingSelection, reset]);
+
   return (
     <div className={`${mobile ? 'w-full flex-1 min-h-0 overflow-hidden' : 'w-[722px] h-[667px]'} bg-[#ffedeb] border-2 border-[#1D1D1D] flex flex-col transition-opacity duration-500 ${awaitingSelection ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
 
@@ -48,11 +65,16 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, mobile }: Pro
       </div>
 
       {/* Frog area */}
-      <div className="flex-1 min-h-0 flex items-center justify-center border-b-2 border-[#1D1D1D] overflow-hidden">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center border-b-2 border-[#1D1D1D] overflow-hidden py-4 gap-3">
         <img
-          src={getFrogSrc(secondsLeft)}
+          src={getFrogSrc(secondsLeft, awaitingSelection)}
           alt="frog"
-          className="w-full h-full object-contain"
+          className="flex-1 min-h-0 object-contain"
+        />
+        <img
+          src={getBubbleSrc(secondsLeft)}
+          alt="frog message"
+          className="h-[72px] object-contain"
         />
       </div>
 
