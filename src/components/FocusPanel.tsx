@@ -4,6 +4,7 @@ import { IndicatorDot } from './IndicatorDot';
 interface Props {
   onSessionComplete: () => void;
   awaitingSelection: boolean;
+  mobile?: boolean;
 }
 
 function getFrogSrc(secondsLeft: number): string {
@@ -20,13 +21,13 @@ function format(seconds: number): string {
   return `${m}:${s}`;
 }
 
-export function FocusPanel({ onSessionComplete, awaitingSelection }: Props) {
+export function FocusPanel({ onSessionComplete, awaitingSelection, mobile }: Props) {
   const { secondsLeft, status, start, pause, reset } = useTimer(onSessionComplete);
   const isRunning = status === 'running';
   const showReset = status !== 'idle';
 
   return (
-    <div className={`w-[722px] h-[667px] bg-[#ffedeb] border-2 border-[#1D1D1D] flex flex-col transition-opacity duration-500 ${awaitingSelection ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+    <div className={`${mobile ? 'w-full flex-1 min-h-0' : 'w-[722px] h-[667px]'} bg-[#ffedeb] border-2 border-[#1D1D1D] flex flex-col transition-opacity duration-500 ${awaitingSelection ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
 
       {/* Title bar */}
       <div className="flex items-center gap-2 px-5 h-[56px] border-b-2 border-[#1D1D1D] flex-shrink-0">
@@ -50,7 +51,7 @@ export function FocusPanel({ onSessionComplete, awaitingSelection }: Props) {
       {/* Bottom bar: timer + action button */}
       <div className="flex items-stretch h-[120px] flex-shrink-0">
         <div className="flex-1 relative flex items-center justify-center">
-          <span className="font-jersey25 text-[80px] leading-none text-[#1d1d1d]">
+          <span className="font-jersey25 text-[52px] lg:text-[80px] leading-none text-[#1d1d1d]">
             {format(secondsLeft)}
           </span>
           {showReset && (
