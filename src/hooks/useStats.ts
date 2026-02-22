@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { fetchStats, updateStats } from '../lib/supabase-api';
+import { useState, useEffect } from 'react';
+import { fetchStats, incrementFood as incrementFoodApi } from '../lib/supabase-api';
 import type { FrogStats, FoodKey } from '../lib/types';
 
 const DEFAULT_STATS: FrogStats = {
@@ -34,8 +34,6 @@ interface UseStatsReturn {
 
 export function useStats(): UseStatsReturn {
   const [stats, setStats] = useState<FrogStats>(DEFAULT_STATS);
-  const statsRef = useRef(stats);
-  statsRef.current = stats;
 
   useEffect(() => {
     fetchStats()
@@ -44,14 +42,10 @@ export function useStats(): UseStatsReturn {
   }, []);
 
   const incrementFood = (food: FoodKey) => {
-    const current = statsRef.current;
-    const next: FrogStats = {
-      ...current,
-      [food]: current[food] + 1,
-      sessions: current.sessions + 1,
-    };
-    setStats(next);
-    updateStats(next).catch((err) => console.error('Failed to save stats:', err));
+    // Optimistic local update
+    setStats(prev => ({ ...prev, [food]: prev[food] + 1, sessions: prev.sessions + 1 }));
+    // DB write goes through the increment_food function — no direct UPDATE allowed
+    incrementFoodApi(food).catch((err) => console.error('Failed to save stats:', err));
   };
 
   return { stats, incrementFood };

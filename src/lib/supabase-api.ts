@@ -37,33 +37,7 @@ export async function fetchStats(): Promise<FrogStats> {
   };
 }
 
-export async function updateStats(stats: FrogStats): Promise<void> {
-  const { error } = await supabase
-    .from('frog_stats')
-    .update({
-      sessions: stats.sessions,
-      taro_croissant: stats.taro_croissant,
-      basque_cheesecake: stats.basque_cheesecake,
-      black_card: stats.black_card,
-      airwrap: stats.airwrap,
-      tesla: stats.tesla,
-      lafufu: stats.lafufu,
-      hong_pao: stats.hong_pao,
-      ice_matcha_latte: stats.ice_matcha_latte,
-      chanel_bag: stats.chanel_bag,
-      coffee: stats.coffee,
-      dumplings: stats.dumplings,
-      airpods: stats.airpods,
-      van_cleef: stats.van_cleef,
-      banana_milk: stats.banana_milk,
-      boba: stats.boba,
-      ramen: stats.ramen,
-      apple: stats.apple,
-      onigiri: stats.onigiri,
-      matcha_soft_serve: stats.matcha_soft_serve,
-      tamagotchi: stats.tamagotchi,
-      gameboy: stats.gameboy,
-    })
-    .eq('id', 1);
+export async function incrementFood(foodKey: string): Promise<void> {
+  const { error } = await supabase.rpc('increment_food', { food_key: foodKey });
   if (error) throw error;
 }
