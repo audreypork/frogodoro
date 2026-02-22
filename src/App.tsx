@@ -18,9 +18,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#f9cec8] flex items-center justify-center">
+    <div className="h-screen w-full overflow-hidden bg-[#f9cec8] flex items-center justify-center">
       <div className="flex items-start gap-[30px]">
-        <FocusPanel onSessionComplete={handleSessionComplete} />
+        <FocusPanel onSessionComplete={handleSessionComplete} awaitingSelection={awaitingSelection} />
         <FoodPanel stats={stats} awaitingSelection={awaitingSelection} onSelectFood={handleFoodSelect} />
       </div>
     </div>

@@ -6,7 +6,14 @@
       "Bash(git add .)",
       "Bash(git commit -m \"initial commit\")",
       "Bash(git rm --cached .env)",
-      "Bash(echo \".env\" >> .gitignore && git commit -am \"remove .env from tracking\")"
+      "Bash(echo \".env\" >> .gitignore && git commit -am \"remove .env from tracking\")",
+      "Bash(git remote add origin https://github.com/audreypork/frogodoro.git)",
+      "Bash(git push -u origin main)",
+      "Bash(npm run build 2>&1)",
+      "Bash(git add public/favicon.png index.html)",
+      "Bash(git commit -m \"add frog favicon\")",
+      "Bash(git push)",
+      "Bash(git add -A && git commit -m \"ui updates: sparkles, stats box, frog image, favicon, no-scroll\")"
     ]
   }
 }

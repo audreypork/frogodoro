@@ -3,3 +3,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+@keyframes sparkle-out {
+  0%   { transform: translate(0, 0) scale(0) rotate(0deg);   opacity: 0; }
+  35%  { opacity: 1; transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(90deg); }
+  100% { transform: translate(calc(var(--tx) * 2), calc(var(--ty) * 2)) scale(0) rotate(200deg); opacity: 0; }
+}
+
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 16px;
+  color: #f5c842;
+  animation: sparkle-out 1.4s ease-out infinite;
+}

@@ -3,6 +3,7 @@ import { IndicatorDot } from './IndicatorDot';
 
 interface Props {
   onSessionComplete: () => void;
+  awaitingSelection: boolean;
 }
 
 function getFrogSrc(secondsLeft: number): string {
@@ -19,18 +20,18 @@ function format(seconds: number): string {
   return `${m}:${s}`;
 }
 
-export function FocusPanel({ onSessionComplete }: Props) {
+export function FocusPanel({ onSessionComplete, awaitingSelection }: Props) {
   const { secondsLeft, status, start, pause, reset } = useTimer(onSessionComplete);
   const isRunning = status === 'running';
   const showReset = status !== 'idle';
 
   return (
-    <div className="w-[722px] h-[667px] bg-[#ffedeb] border-2 border-[#1D1D1D] flex flex-col">
+    <div className={`w-[722px] h-[667px] bg-[#ffedeb] border-2 border-[#1D1D1D] flex flex-col transition-opacity duration-500 ${awaitingSelection ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
 
       {/* Title bar */}
       <div className="flex items-center gap-2 px-5 h-[56px] border-b-2 border-[#1D1D1D] flex-shrink-0">
         <IndicatorDot color="#92bd51" />
-        <span className="font-jersey10 text-[18px] text-[#5E5E5E] tracking-[0.02em] whitespace-nowrap">FOCUS TIME</span>
+        <span className="font-jersey10 text-[28px] text-[#5E5E5E] tracking-[0.02em] whitespace-nowrap">FOCUS TIME</span>
         <div className="flex-1 flex flex-col gap-[3px] ml-2">
           <div className="h-[1.5px] bg-[#1D1D1D]" />
           <div className="h-[1.5px] bg-[#1D1D1D]" />

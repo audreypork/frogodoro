@@ -19,12 +19,12 @@ export function FoodItem({ label, iconSrc, count, selectable, borderColor, onSel
       </div>
 
       {/* Name */}
-      <span className="font-jersey10 text-[18px] text-[#1d1d1d] flex-1 flex items-center px-3">
+      <span className="font-jersey10 text-[28px] text-[#1d1d1d] flex-1 flex items-center px-3">
         {label}
       </span>
 
       {/* Count */}
-      <span className="font-jersey10 text-[16px] text-[#1d1d1d] opacity-40 flex items-center pr-3">
+      <span className="font-jersey10 text-[28px] text-[#1d1d1d] opacity-40 flex items-center pr-3">
         {count}
       </span>
     </div>
