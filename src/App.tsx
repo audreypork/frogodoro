@@ -30,7 +30,7 @@ function App() {
       </div>
 
       {/* Mobile layout */}
-      <div className="flex lg:hidden flex-col h-full p-3 gap-3">
+      <div className="flex lg:hidden flex-col h-full px-3 py-6 gap-3">
         <StatsBox stats={stats} />
         {!awaitingSelection ? (
           <FocusPanel

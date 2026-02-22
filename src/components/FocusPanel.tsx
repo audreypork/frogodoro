@@ -27,7 +27,7 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, mobile }: Pro
   const showReset = status !== 'idle';
 
   return (
-    <div className={`${mobile ? 'w-full flex-1 min-h-0' : 'w-[722px] h-[667px]'} bg-[#ffedeb] border-2 border-[#1D1D1D] flex flex-col transition-opacity duration-500 ${awaitingSelection ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+    <div className={`${mobile ? 'w-full flex-1 min-h-0 overflow-hidden' : 'w-[722px] h-[667px]'} bg-[#ffedeb] border-2 border-[#1D1D1D] flex flex-col transition-opacity duration-500 ${awaitingSelection ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
 
       {/* Title bar */}
       <div className="flex items-center gap-2 px-5 h-[56px] border-b-2 border-[#1D1D1D] flex-shrink-0">
@@ -40,11 +40,11 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, mobile }: Pro
       </div>
 
       {/* Frog area */}
-      <div className="flex-1 flex items-center justify-center border-b-2 border-[#1D1D1D]">
+      <div className="flex-1 min-h-0 flex items-center justify-center border-b-2 border-[#1D1D1D] overflow-hidden">
         <img
           src={getFrogSrc(secondsLeft)}
           alt="frog"
-          className="w-[485px] h-[485px] object-contain"
+          className="w-full h-full object-contain"
         />
       </div>
 
@@ -65,7 +65,7 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, mobile }: Pro
         </div>
         <button
           onClick={isRunning ? pause : start}
-          className={`w-[220px] border-l-2 border-[#1D1D1D] font-jersey25 text-[48px] leading-none text-[#1d1d1d] hover:brightness-95 active:scale-[0.98] transition-all ${isRunning ? 'bg-[#D69191]' : 'bg-[#dbeaa3]'}`}
+          className={`px-6 lg:w-[220px] lg:px-0 border-l-2 border-[#1D1D1D] font-jersey25 text-[48px] leading-none text-[#1d1d1d] hover:brightness-95 active:scale-[0.98] transition-all ${isRunning ? 'bg-[#D69191]' : 'bg-[#dbeaa3]'}`}
         >
           {isRunning ? 'PAUSE' : 'START'}
         </button>
