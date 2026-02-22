@@ -15,7 +15,9 @@
       "Bash(git push)",
       "Bash(git add -A && git commit -m \"ui updates: sparkles, stats box, frog image, favicon, no-scroll\")",
       "Bash(git add -A && git commit -m \"add mobile responsive layout and fix desktop alignment\")",
-      "Bash(git add -A && git commit -m \"mobile: 24px top/bottom padding, responsive frog image height, hug content buttons\" && git push)"
+      "Bash(git add -A && git commit -m \"mobile: 24px top/bottom padding, responsive frog image height, hug content buttons\" && git push)",
+      "Bash(git add public/favicon.png && git commit -m \"update favicon\" && git push)",
+      "Bash(git add -A && git commit -m \"revert to public anon access\" && git push)"
     ]
   }
 }
