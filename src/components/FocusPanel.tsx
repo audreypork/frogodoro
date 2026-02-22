@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useTimer } from '../hooks/useTimer';
 import { IndicatorDot } from './IndicatorDot';
+import { playClick, playTick } from '../lib/sounds';
 
 interface Props {
   onSessionComplete: () => void;
@@ -25,6 +27,12 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, mobile }: Pro
   const { secondsLeft, status, start, pause, reset } = useTimer(onSessionComplete);
   const isRunning = status === 'running';
   const showReset = status !== 'idle';
+
+  useEffect(() => {
+    if (isRunning && secondsLeft <= 5 && secondsLeft > 0) {
+      playTick();
+    }
+  }, [secondsLeft, isRunning]);
 
   return (
     <div className={`${mobile ? 'w-full flex-1 min-h-0 overflow-hidden' : 'w-[722px] h-[667px]'} bg-[#ffedeb] border-2 border-[#1D1D1D] flex flex-col transition-opacity duration-500 ${awaitingSelection ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
@@ -64,7 +72,7 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, mobile }: Pro
           )}
         </div>
         <button
-          onClick={isRunning ? pause : start}
+          onClick={() => { isRunning ? pause() : start(); playClick(); }}
           className={`px-6 lg:w-[220px] lg:px-0 border-l-2 border-[#1D1D1D] font-jersey25 text-[48px] leading-none text-[#1d1d1d] hover:brightness-95 active:scale-[0.98] transition-all ${isRunning ? 'bg-[#D69191]' : 'bg-[#dbeaa3]'}`}
         >
           {isRunning ? 'PAUSE' : 'START'}

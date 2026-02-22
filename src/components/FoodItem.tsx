@@ -1,3 +1,5 @@
+import { playNom } from '../lib/sounds';
+
 interface Props {
   label: string;
   iconSrc: string;
@@ -11,7 +13,7 @@ export function FoodItem({ label, iconSrc, count, selectable, borderColor, onSel
   return (
     <div
       className={`flex items-stretch border-b-2 ${borderColor} transition-colors ${selectable ? 'cursor-pointer hover:bg-[#f5a89e]' : ''}`}
-      onClick={selectable ? onSelect : undefined}
+      onClick={selectable ? () => { playNom(); onSelect(); } : undefined}
     >
       {/* Icon cell */}
       <div className={`w-[90px] h-[90px] border-r-2 ${borderColor} bg-[#F7DAD6] flex items-center justify-center flex-shrink-0 p-2`}>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useStats } from './hooks/useStats';
+import { playSparkle } from './lib/sounds';
 import { FocusPanel } from './components/FocusPanel';
 import { FoodPanel } from './components/FoodPanel';
 import { StatsBox } from './components/StatsBox';
@@ -10,6 +11,7 @@ function App() {
   const [awaitingSelection, setAwaitingSelection] = useState(false);
 
   const handleSessionComplete = () => {
+    playSparkle();
     setAwaitingSelection(true);
   };
 
