@@ -80,16 +80,16 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, mobile }: Pro
 
       {/* Bottom bar: timer + action button */}
       <div className="flex items-stretch h-[120px] flex-shrink-0">
-        <div className="flex-1 relative flex items-center justify-center">
+        <div className="flex-1 relative flex items-center justify-center gap-3">
           <span className="font-jersey25 text-[52px] lg:text-[80px] leading-none text-[#1d1d1d]">
             {format(secondsLeft)}
           </span>
           {showReset && (
             <button
               onClick={reset}
-              className="absolute left-[calc(50%+120px)] opacity-65 hover:opacity-90 transition-opacity"
+              className="opacity-65 hover:opacity-90 transition-opacity flex-shrink-0"
             >
-              <img src="/assets/icon-reset.png" alt="Reset" className="w-[52px] h-[52px] object-contain" />
+              <img src="/assets/icon-reset.png" alt="Reset" className="w-[40px] h-[40px] lg:w-[52px] lg:h-[52px] object-contain" />
             </button>
           )}
         </div>

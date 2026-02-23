@@ -21,7 +21,7 @@ function App() {
   };
 
   return (
-    <div className="h-screen w-full overflow-hidden bg-[#f9cec8]">
+    <div className="h-dvh w-full overflow-hidden bg-[#f9cec8]">
 
       {/* Desktop layout */}
       <div className="hidden lg:flex items-center justify-center h-full">
