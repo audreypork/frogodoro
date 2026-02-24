@@ -33,6 +33,7 @@ export function useTimer(onComplete: () => void): UseTimerReturn {
   }, [secondsLeft, status]);
 
   const start = useCallback(() => {
+    clearTimer();
     setSecondsLeft((prev) => {
       const next = prev === 0 ? TOTAL_SECONDS : prev;
       return next;
