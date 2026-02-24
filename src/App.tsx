@@ -23,30 +23,41 @@ function App() {
   return (
     <div className="h-dvh w-full overflow-hidden bg-[#f9cec8]">
 
-      {/* Desktop layout */}
-      <div className="hidden xl:flex items-center justify-center h-full">
-        <div className="flex items-start gap-[30px]">
-          <FocusPanel onSessionComplete={handleSessionComplete} awaitingSelection={awaitingSelection} />
+      {/* Side-by-side layout (md+) */}
+      <div className="hidden md:flex items-center justify-center h-full px-16 xl:px-24">
+        <div className="flex items-start gap-5 xl:gap-[30px] w-full xl:w-auto">
+          <FocusPanel onSessionComplete={handleSessionComplete} awaitingSelection={awaitingSelection} onFoodDrop={handleFoodSelect} />
           <FoodPanel stats={stats} awaitingSelection={awaitingSelection} onSelectFood={handleFoodSelect} />
         </div>
       </div>
 
-      {/* Mobile/tablet layout */}
-      <div className="flex xl:hidden flex-col h-full px-3 py-6 gap-3">
+      {/* Mobile layout (below md) */}
+      <div className="flex md:hidden flex-col h-full px-3 py-6 gap-3">
+
         <StatsBox stats={stats} />
         {!awaitingSelection ? (
           <FocusPanel
             onSessionComplete={handleSessionComplete}
             awaitingSelection={false}
+            onFoodDrop={handleFoodSelect}
             mobile
           />
         ) : (
-          <FoodPanel
-            stats={stats}
-            awaitingSelection={awaitingSelection}
-            onSelectFood={handleFoodSelect}
-            mobile
-          />
+          <>
+            <FocusPanel
+              onSessionComplete={handleSessionComplete}
+              awaitingSelection={true}
+              onFoodDrop={handleFoodSelect}
+              mobile
+              frogOnly
+            />
+            <FoodPanel
+              stats={stats}
+              awaitingSelection={true}
+              onSelectFood={handleFoodSelect}
+              mobile
+            />
+          </>
         )}
       </div>
 

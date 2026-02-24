@@ -19,10 +19,10 @@ function formatTotal(n: number): string {
 export function FoodPanel({ stats, awaitingSelection, onSelectFood, mobile }: Props) {
   const total = FOOD_ITEMS.reduce((sum, item) => sum + stats[item.key], 0);
   const borderColor = awaitingSelection ? 'border-[#f5a89e]' : 'border-[#1D1D1D]';
-  const width = mobile ? 'w-full' : 'w-[361px]';
+  const width = 'w-full';
 
   return (
-    <div className={`flex flex-col gap-[8px] ${mobile ? 'flex-1 min-h-0' : ''}`}>
+    <div className={`flex flex-col gap-[8px] ${mobile ? 'flex-1 min-h-0' : 'flex-[1] min-w-0 xl:flex-none xl:w-[361px]'}`}>
 
       {/* Main food container */}
       <div className={`${width} bg-[#ffedeb] border-2 ${borderColor} flex flex-col ${mobile ? 'flex-1 min-h-0' : ''}`}>
@@ -30,8 +30,8 @@ export function FoodPanel({ stats, awaitingSelection, onSelectFood, mobile }: Pr
         {/* FOOD title bar */}
         <div className={`relative flex items-center gap-2 px-4 h-[56px] border-b-2 ${borderColor} flex-shrink-0 overflow-visible`}>
           <IndicatorDot color="#efc7c1" />
-          <span className="font-jersey10 text-[28px] text-[#5E5E5E] tracking-[0.02em] whitespace-nowrap">
-            {awaitingSelection ? 'PICK YOUR REWARD!' : 'FOOD'}
+          <span className={`font-jersey10 text-[28px] tracking-[0.02em] whitespace-nowrap ${awaitingSelection ? 'text-[#1d1d1d]' : 'text-[#5E5E5E]'}`}>
+            {awaitingSelection ? 'DRAG TO FEED FROG' : 'FOOD'}
           </span>
           {awaitingSelection && (
             <>
@@ -50,7 +50,7 @@ export function FoodPanel({ stats, awaitingSelection, onSelectFood, mobile }: Pr
         </div>
 
         {/* Food list */}
-        <div className={mobile ? 'flex-1 overflow-y-auto' : 'h-[414px] overflow-y-auto'}>
+        <div className={mobile ? 'flex-1 overflow-y-auto' : 'h-[315px] overflow-y-auto'}>
           {FOOD_ITEMS.map((item) => (
             <FoodItem
               key={item.key}
@@ -59,7 +59,10 @@ export function FoodPanel({ stats, awaitingSelection, onSelectFood, mobile }: Pr
               count={stats[item.key]}
               selectable={awaitingSelection}
               borderColor={borderColor}
-              onSelect={() => onSelectFood(item.key)}
+              onDragStart={(e) => {
+                e.dataTransfer.setData('text/plain', item.key);
+                e.dataTransfer.effectAllowed = 'move';
+              }}
             />
           ))}
         </div>

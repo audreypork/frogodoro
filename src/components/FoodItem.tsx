@@ -1,4 +1,5 @@
-import { playNom } from '../lib/sounds';
+import { useRef } from 'react';
+import type React from 'react';
 
 interface Props {
   label: string;
@@ -6,18 +7,28 @@ interface Props {
   count: number;
   selectable: boolean;
   borderColor: string;
-  onSelect: () => void;
+  onDragStart?: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
-export function FoodItem({ label, iconSrc, count, selectable, borderColor, onSelect }: Props) {
+export function FoodItem({ label, iconSrc, count, selectable, borderColor, onDragStart }: Props) {
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    if (imgRef.current) {
+      e.dataTransfer.setDragImage(imgRef.current, 35, 35);
+    }
+    onDragStart?.(e);
+  };
+
   return (
     <div
-      className={`flex items-stretch border-b-2 ${borderColor} transition-colors ${selectable ? 'cursor-pointer hover:bg-[#f5a89e]' : ''}`}
-      onClick={selectable ? () => { playNom(); onSelect(); } : undefined}
+      draggable={selectable}
+      onDragStart={selectable ? handleDragStart : undefined}
+      className={`flex items-stretch border-b-2 ${borderColor} transition-colors ${selectable ? 'cursor-grab hover:bg-[#f5a89e]' : ''}`}
     >
       {/* Icon cell */}
       <div className={`w-[90px] h-[90px] border-r-2 ${borderColor} bg-[#F7DAD6] flex items-center justify-center flex-shrink-0 p-2`}>
-        <img src={iconSrc} alt={label} className="w-[70px] h-[70px] object-contain" />
+        <img ref={imgRef} src={iconSrc} alt={label} className="w-[70px] h-[70px] object-contain" />
       </div>
 
       {/* Name */}
