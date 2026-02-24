@@ -59,6 +59,7 @@ export function FoodPanel({ stats, awaitingSelection, onSelectFood, mobile }: Pr
               count={stats[item.key]}
               selectable={awaitingSelection}
               borderColor={borderColor}
+              onSelect={() => onSelectFood(item.key)}
               onDragStart={(e) => {
                 e.dataTransfer.setData('text/plain', item.key);
                 e.dataTransfer.effectAllowed = 'move';

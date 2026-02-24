@@ -7,10 +7,11 @@ interface Props {
   count: number;
   selectable: boolean;
   borderColor: string;
+  onSelect?: () => void;
   onDragStart?: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
-export function FoodItem({ label, iconSrc, count, selectable, borderColor, onDragStart }: Props) {
+export function FoodItem({ label, iconSrc, count, selectable, borderColor, onSelect, onDragStart }: Props) {
   const imgRef = useRef<HTMLImageElement>(null);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
@@ -24,6 +25,7 @@ export function FoodItem({ label, iconSrc, count, selectable, borderColor, onDra
     <div
       draggable={selectable}
       onDragStart={selectable ? handleDragStart : undefined}
+      onClick={selectable ? onSelect : undefined}
       className={`flex items-stretch border-b-2 ${borderColor} transition-colors ${selectable ? 'cursor-grab hover:bg-[#f5a89e]' : ''}`}
     >
       {/* Icon cell */}
