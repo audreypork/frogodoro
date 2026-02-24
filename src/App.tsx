@@ -24,15 +24,15 @@ function App() {
     <div className="h-dvh w-full overflow-hidden bg-[#f9cec8]">
 
       {/* Desktop layout */}
-      <div className="hidden lg:flex items-center justify-center h-full">
+      <div className="hidden xl:flex items-center justify-center h-full">
         <div className="flex items-start gap-[30px]">
           <FocusPanel onSessionComplete={handleSessionComplete} awaitingSelection={awaitingSelection} />
           <FoodPanel stats={stats} awaitingSelection={awaitingSelection} onSelectFood={handleFoodSelect} />
         </div>
       </div>
 
-      {/* Mobile layout */}
-      <div className="flex lg:hidden flex-col h-full px-3 py-6 gap-3">
+      {/* Mobile/tablet layout */}
+      <div className="flex xl:hidden flex-col h-full px-3 py-6 gap-3">
         <StatsBox stats={stats} />
         {!awaitingSelection ? (
           <FocusPanel
