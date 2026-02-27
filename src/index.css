@@ -26,3 +26,18 @@ body {
   color: #f5c842;
   animation: sparkle-out 1.4s ease-out infinite;
 }
+
+@keyframes crunch {
+  0%   { transform: scale(1) rotate(0deg); }
+  10%  { transform: scale(1.25) rotate(-10deg); }
+  25%  { transform: scale(0.88) rotate(8deg); }
+  40%  { transform: scale(1.18) rotate(-6deg); }
+  55%  { transform: scale(0.93) rotate(4deg); }
+  70%  { transform: scale(1.08) rotate(-2deg); }
+  85%  { transform: scale(0.97) rotate(1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.crunch {
+  animation: crunch 0.5s ease-in-out;
+}

@@ -25,7 +25,7 @@ export function FoodItem({ label, iconSrc, count, selectable, borderColor, onSel
     <div
       draggable={selectable}
       onDragStart={selectable ? handleDragStart : undefined}
-      onClick={selectable ? onSelect : undefined}
+      onClick={undefined}
       className={`flex items-stretch border-b-2 ${borderColor} transition-colors ${selectable ? 'cursor-grab hover:bg-[#f5a89e]' : ''}`}
     >
       {/* Icon cell */}

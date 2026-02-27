@@ -72,7 +72,7 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, onFoodDrop, m
     if (key && onFoodDrop) {
       playNom();
       setIsEating(true);
-      setTimeout(() => setIsEating(false), 600);
+      setTimeout(() => setIsEating(false), 3000);
       onFoodDrop(key);
     }
   };
@@ -101,7 +101,7 @@ export function FocusPanel({ onSessionComplete, awaitingSelection, onFoodDrop, m
         <img
           src={getFrogSrc(secondsLeft, awaitingSelection, isEating)}
           alt="frog"
-          className={`flex-1 min-h-0 object-contain transition-transform duration-150 ${isDragOver ? 'scale-110' : ''}`}
+          className={`flex-1 min-h-0 object-contain transition-transform duration-150 ${isDragOver ? 'scale-110' : ''} ${isEating ? 'crunch' : ''}`}
         />
         {!frogOnly && (
           <img
